@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Scrub01</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-light: #ECEFF1;
+            --bg-dark: #1e1e1e;
+            --text-light: #333;
+            --text-dark: #fff;
+            --sidebar-light: #fff;
+            --sidebar-dark: #2c2c2c;
+            --button-light:rgb(179, 169, 202);
+            --button-dark: rgb(179, 169, 202);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            display: flex;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-light);
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            left: -250px;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background-color: #dcdcdc;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            left: 250px;
+            background-color: var(--button-light);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgb(179, 169, 202);
+        }
+
+        .main-content {
+            margin-left: 20px;
+            padding: 40px;
+            flex-grow: 1;
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar.open + .main-content {
+            margin-left: 270px;
+        }
+
+        .upload-section {
+            margin-top: 20px;
+            background: var(--upload-bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .upload-options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .upload-card {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: var(--upload-card-bg);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .upload-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .upload-card i {
+            font-size: 40px;
+            color:rgb(179, 169, 202);
+        }
+
+        .upload-card span {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .selected-files-container {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            justify-content: space-between;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .selected-files {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .file-preview-placeholder {
+            text-align: center;
+            color: #aaa;
+        }
+
+        .file-preview img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            margin: 5px;
+        }
+
+        .remove-file {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <button class="toggle-btn" onclick="toggleSidebar()">❮</button>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" style="width: 200px; height: auto;">
+          
+        </div>
+        <nav class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> HOME</a>
+            <a href="#"><i class="fa fa-info-circle"></i> ABOUT US</a>
+            <a href="#"><i class="fa fa-user"></i> PROFILE</a>
+            <a href="#"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
+        </nav>
+    </aside>
+
+    <section class="main-content" id="main-content">
+        <h2>Welcome to SCRUB-1</h2>
+        <p>This is a tool for extracting and displaying tables from PDF receipts. Upload your PDF to see the tables.</p>
+        
+        <!-- File upload section -->
+        <div class="upload-section">
+            <h3>Upload PDF</h3>
+            <p>Upload your PDF file for table extraction</p>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="pdf" accept="application/pdf" required>
+                <button type="submit">Upload PDF</button>
+            </form>
+        </div>
+    </section>
+    
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+        }
+    </script>
+</body>
+</html>
