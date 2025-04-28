@@ -67,6 +67,7 @@ def upload_file():
     
     return "Invalid file type. Please upload a PDF."
 
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)

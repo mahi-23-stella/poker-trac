@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrub-1</title>
+
+  <!-- Link to Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url("{{ url_for('static', filename='images/back.jpg') }}") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+
+    .text-container {
+      flex: 1;
+      padding: 50px;
+      max-width: 600px;
+    }
+
+    .text-container h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .text-container p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      margin: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: inline-block;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.6); /* Darker overlay for better text contrast */
+      padding: 40px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .form-container h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .remember-me input {
+      margin-right: 10px;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 15px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .form-btn:hover {
+      background-color: #e53935;
+    }
+
+    .forgot-password {
+      color: #bbb;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .forgot-password:hover {
+      color: #fff;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .text-container {
+        padding: 30px;
+      }
+
+      .form-container {
+        padding: 30px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left side: Text and Buttons -->
+    <div class="text-container">
+      <h1>Effortless and Quick MCA Underwriting</h1>
+      <p>Looking for a fast and efficient way to analyze your bank statements? Look no further! Our Bank Statement Analysis Tool provides an easy-to-use platform that helps you quickly process and categorize your financial transactions.</p>
+      <div class="buttons">
+        <a href="https://scrub01.com/" class="btn">Visit Website</a>
+      </div>
+    </div>
+
+    <!-- Right side: Sign-in Form -->
+    <div class="form-container">
+      <h2>Sign In</h2>
+      <form action="\signup" method="POST">
+        <input type="email" class="form-input" placeholder="Enter your email" required>
+        <input type="password" class="form-input" placeholder="6+ Characters, 1 Capital letter" required>
+        <div class="remember-me">
+          <input type="checkbox" id="remember-me">
+          <label for="remember-me">Remember Me</label>
+        </div>
+        <button type="submit" class="form-btn">Sign In</button>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
